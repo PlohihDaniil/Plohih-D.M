@@ -1,10 +1,12 @@
 # -- cooding: utf-8 --
-a = int(input())
-b = int(input())
-c = int(input())
-if b >= a <= c:
-    print(f'меньшее число {a}')
-elif a >= b <= c:
-    print(f'меньшее число {b}')
-else:
-    print(f'меньшее число {c}')
+def x():
+    a = int(input())
+    b = int(input())
+    c = int(input())
+    if b >= a <= c:
+        return f'меньшее число {a}'
+    elif a >= b <= c:
+        return f'меньшее число {b}'
+    else:
+        return f'меньшее число {c}'
+print (x())
