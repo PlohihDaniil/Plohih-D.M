@@ -1,3 +1,4 @@
+# -- cooding: utf-8 --
 a=1
 b=5
 def man(a,b):

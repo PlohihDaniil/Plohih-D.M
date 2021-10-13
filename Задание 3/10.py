@@ -1,3 +1,4 @@
+# -- cooding: utf-8 --
 n=10
 k=5
 def man(n,k):

@@ -1,7 +1,9 @@
+# -- cooding: utf-8 --
 s=input()
 d=input()
-s= s.replace(d,"")
-print(s)
-
+def man(s,d):
+    s= s.replace(d,"")
+    print(s)
+man(s,d)
 
 

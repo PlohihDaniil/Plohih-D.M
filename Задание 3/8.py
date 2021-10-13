@@ -1,3 +1,4 @@
+# -- cooding: utf-8 --
 n = 4
 def man(n):
     if 0< n <=9:

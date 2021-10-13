@@ -1,2 +1,5 @@
+# -- cooding: utf-8 --
 s=input()
-print(s.count(' ')+1)
+def man(s):
+    print(s.count(' ')+1)
+man(s)

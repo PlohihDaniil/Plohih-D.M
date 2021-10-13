@@ -1,3 +1,4 @@
+# -- cooding: utf-8 --
 n=2
 def man(n):
     s=0
