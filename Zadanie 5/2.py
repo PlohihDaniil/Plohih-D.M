@@ -1,11 +1,12 @@
 # -- cooding: utf-8 --
-N=10
-a=2
-def man (N,a):
+
+def zad2 ():
+    N=10
+    a=2
     while a != N:
         k=N%a
         if k == 0 :
             print(a)
             break
         a+=1
-man (N,a)
+zad2 ()
