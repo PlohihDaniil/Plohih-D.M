@@ -9,4 +9,4 @@ def x():
         print(2)
     else:
         print(0)
-print(x())
+x()
