@@ -1,24 +1,16 @@
 package Plohih1;
 
-public class Zadanie {
+public class Zadanie1 {
 	public static void main(String[] args) {
-		int[] mass = {1, 3, 5, 2, 7, 5, 9, 4, 8, 6};
-		int min=mass[0];
-		for (int i = 1; i < mass.length; i++) {
-			if (mass[i] < min) {
-				min=mass[i];
+		int[] mass= {23,36,15,11};
+		int x=mass[0];
+		int sum=0;
+		for (int i=1; i<mass.length; i++) {
+			if (x<mass[i]) {
+				sum +=1;
 			}
+			x=mass[i];
 		}
-		for (int i=0;i<mass.length;i++) {
-			System.out.print(mass[i] + "\t");
-		}
-		System.out.println();
-		for (int i = 0; i < mass.length; i++) {
-			mass[i]-=min;
-		}
-		for (int i=0;i<mass.length;i++) {
-			System.out.print(mass[i] + "\t");
-		}
-		
+		System.out.println(sum);
 	}
 }

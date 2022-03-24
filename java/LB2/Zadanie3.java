@@ -1,62 +1,38 @@
 package Plohih3;
-import java.util.Scanner;//для ввода данных
 import java.util.Random;
 import java.util.ArrayList;
-public class Zadanie {
+public class Zadanie3 {
 	public static void main(String[] args) {
 		ArrayList <Integer> vec = new ArrayList<>();
-		Scanner in = new Scanner(System.in);
-		System.out.println("Paramitri matrix n и m:");
-		int n = in.nextInt();
-		int m = in.nextInt();
-		int[][] matr = new int [n][m];
+		int n=5;
+		int sum=0;
+		int[][] mat= new int [n][n];
 		
-		//ограничение рандомных чисел
-				int min = 0;
-				int max = 100;
-				
-		// заполнение матрицы
-				for (int i = 0; i < n; i++) {
-				    for (int j = 0; j < m; j++) {
-				        matr[i][j]=new Random().nextInt(max - min);
-				    }
+		for (int i=0;i<n;i++) {
+			for (int j=0; j<n; j++ ) {
+				mat[i][j] = new Random().nextInt(20)-10;
+				System.out.print(mat[i][j]+"\t");
+			}
+			System.out.println();
+		}
+		
+		for (int j=0; j<n; j++) {
+			sum=0;
+			for (int i=0; i<n; i++) {
+				if (mat[i][j]>0) {
+				sum+=mat[i][j];	
 				}
-				
-		//вывод матрицы
-				for (int i = 0; i < n; i++) {
-				    for (int j = 0; j < m; j++) {
-				        System.out.print(matr[i][j] + "\t");
-				    }
-				    System.out.println();
-				}
-		//нахождение минимального элемента в стобе
-				for (int j = 0; j < m; j++) {
-					int nn = matr[0][j];
-				    for (int i = 0; i < n; i++) {
-				    	if ( matr[i][j] < nn ) {
-				    		nn=matr[i][j];
-				    	}
-				    }
-				vec.add(nn);
-					for (int i = 0; i < n; i++) {
-						matr[i][j]*=nn;
-					}
-				}
-		//вывод матрицы
-				System.out.println();
-						for (int i = 0; i < n; i++) {
-						    for (int j = 0; j < m; j++) {
-						        System.out.print(matr[i][j] + "\t");
-						    }
-						    System.out.println();
-						}
-				System.out.println();
-
-				for (int i:vec) {
-				System.out.print(i + "\t");
-				}
-				
-				in.close();	
+			}
+		vec.add(sum);
+		}
+		System.out.println();
+		for (int i: vec) {
+			System.out.print(i+"\t");
+		}
+		
+		
+		
+		
 		
 		
 	}

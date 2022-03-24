@@ -1,41 +1,51 @@
 package Plohih2;
-
-public class Zadanie {
+import java.util.Random;
+public class Zadanie2 {
 	public static void main(String[] args) {
-		int[] mass = {1, 3, 5, 10, 7, 5, 9, 4, 8, 6};
-		int max = mass[0];
-		int maxN = 0;
-		//вывод матрицы
-		for (int i=0;i<mass.length;i++) {
-			System.out.print(mass[i] + "\t");
+		int n=10;
+		
+		int[] c= new int [n];
+		int[] v= new int [n];
+		int sum=0;
+		//заполнение массива
+		for(int i=0; i<n;i++) {
+			c[i]=new Random().nextInt(20)-10;
 		}
-		//нахождение максимума
-		for (int i = 0; i < mass.length; i++) {
-			if (max<mass[i]) {
-				max = mass[i];
-				maxN = i;
+		//перемещение из массива c в v
+		for(int i=0; i<n; i++) {
+			if(c[i]!=0) {
+				v[sum]=c[i];
+				sum+=1;
 			}
 		}
-		//вывод максимума и его номера
-		System.out.println();
-		System.out.println("Max znashenie= " + max);
-		System.out.println("Porydkoviy №= " + maxN);
-		//сортировка
-		for(int i = maxN+1; i<mass.length-1; i++) {
-	         for (int j = i+1; j<mass.length; j++) {
-	            if(mass[i] > mass[j]) {
-	               int temp = mass[i];
-	               mass[i] = mass[j];
-	               mass[j] = temp;
-	            }
-	         }
+		
+		int[] x= new int[sum];
+		for(int i=0; i<sum; i++) {
+			x[i]=v[i];
+			
 		}
-		System.out.println();
-		//вывод матрицы
-		for (int i=0;i<mass.length;i++) {
-			System.out.print(mass[i] + "\t");
+		//sort
+		for (int t=0;t<n*2;t++) {
+			for(int i=0, j=1; j<x.length; i++, j++) {
+				int min =x[i];
+				if(min>x[j]) {
+					x[i]=x[j];
+					x[j]=min;
+				}
+			}
 		}
 		
+		//вывод
 		
+		for (int i:c) {
+			System.out.print(i+"\t");
+		}System.out.println();
+		for (int i:v) {
+			System.out.print(i+"\t");
+		}
+		System.out.println();
+		for (int i:x) {
+			System.out.print(i+"\t");
+		}
 	}
 }
