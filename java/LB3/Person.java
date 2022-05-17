@@ -72,8 +72,8 @@ public class Person {
 	
 	public String toString()
 	{
-	 return "Супермаркет" + ". Название отдела " + nameotdela + ". Код товара " + productCode + 
-	". Наименование товара " + name + ". Страна-производитель " + cuntry + ". Розничная цена " + 
-	retailPrice + ". Поставщик " + namesource + ".";
+	 return "Supermarket" + ". department name " + nameotdela + ". product code " + productCode + 
+	". product name " + name + ". country of origin " + cuntry + ". Retail price " + 
+	retailPrice + ". The supplier " + namesource + ".";
 	}
 }
