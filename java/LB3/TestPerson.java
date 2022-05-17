@@ -15,8 +15,7 @@ package com.makotogroup.intro;
 
 public class TestPerson {
 	public static void main(String[] args) {
-		Person person = new Person("Молочный",6845324,"Молоко","Россия",254,"Кидалово");
+		Person person = new Person("Molochnai",6845324,"Moloko","Russia",254,"Kudalovo");
 		System.out.println(person.toString());
-		//System.out.println(person);
 		}
 }

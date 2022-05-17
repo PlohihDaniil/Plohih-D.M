@@ -11,12 +11,6 @@
  * namesource
  */
 
-
-
-
-
-
-
 package com.makotogroup.intro;
 
 public class Person {
