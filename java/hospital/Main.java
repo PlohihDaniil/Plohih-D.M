@@ -37,7 +37,7 @@ public class Main {
                         db.addOtdel(db.newOtdel());
                     }
                     if (a == 2) {
-                        db.showOtdel();db.deleteOtdel();
+                        db.showIdOtdel();db.deleteOtdel();
                     }
                     if (a == 3) {
                         db.showIdOtdel();db.changeOtdel();
@@ -50,7 +50,7 @@ public class Main {
                         db.addBolnoi(db.newBolnoi());
                     }
                     if (x==2){
-                        db.showBolnoi();db.deleteBolnoi();
+                        db.showIdBolnoi();db.deleteBolnoi();
                     }
                     if (x==3){
                         db.showIdBolnoi();db.changeBolnoi();
@@ -60,13 +60,14 @@ public class Main {
                     System.out.println("1 Отделения 2 Больные 3 Врачи 4 Все вместе 5 По отдельности ");
                     int b = scan.nextInt();
                     if (b==1){
+                        System.out.println("Название\t"+ "Количество врачей\t" + "Количество больных");
                         db.showOtdel();
                     }
                     if (b==2){
                         db.showBolnoi();
                     }
                     if (b==4){
-                        db.showOtdel();db.showBolnoi();
+                        db.showOtdel(); db.showVrach(); db.showBolnoi();
                     }
                     if (b==3){
                         db.showVrach();
@@ -89,7 +90,7 @@ public class Main {
                         db.addVrach(db.newVrach());
                     }
                     if (l==2){
-                        db.showVrach();db.deleteVrach();
+                        db.showIdVrach();db.deleteVrach();
                     }
                     if (l==3){
                         db.showIdVrach();db.changeVrach();

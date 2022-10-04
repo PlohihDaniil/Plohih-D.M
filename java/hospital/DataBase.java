@@ -8,41 +8,41 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.*;
 
-public class DataBase{
+public class DataBase {
     String queryB = "select * from bolnoilists";
     String queryV = "select * from vrachlists";
     String queryOt = "select * from otdelLists";
     private final String INSERT_Bolnoi = " insert into bolnoilists values (?,?,?,?,?,?,?)";
     private final String INSERT_Vrach = " insert into vrachlists values (?,?,?,?,?,?,?)";
     private final String INSERT_Otdel = "insert into otdellists values (?,?,?,?)";
-    DBWorker worker=new DBWorker();
+    DBWorker worker = new DBWorker();
     Statement statement;
     Scanner scan = new Scanner(System.in);
 
     private List<Vrach> vrachList = new ArrayList<>();
     private List<Bolnoi> bolnoiList = new ArrayList<>();
-    private  List<Otdel> otdelList = new ArrayList<>();
+    private List<Otdel> otdelList = new ArrayList<>();
 
     //БОЛЬНЫЕ
-    void addBolnoi(Bolnoi Bolnoi){
+    void addBolnoi(Bolnoi Bolnoi) {
         bolnoiList.add(Bolnoi);
     }
 
-    void showBolnoi(){
-        for (int i=0; i< bolnoiList.size(); i++){
+    void showBolnoi() {
+        for (int i = 0; i < bolnoiList.size(); i++) {
             Person number = bolnoiList.get(i);
             System.out.println(number);
         }
     }
 
-    void showIdBolnoi(){
-        for (int i=0; i< bolnoiList.size(); i++){
+    void showIdBolnoi() {
+        for (int i = 0; i < bolnoiList.size(); i++) {
             Person number = bolnoiList.get(i);
-            System.out.println(i+" " + number);
+            System.out.println(i + " " + number);
         }
     }
 
-    Bolnoi newBolnoi(){
+    Bolnoi newBolnoi() {
         LocalDate data = LocalDate.now();
 
         System.out.println("Введите имя больного: ");
@@ -50,24 +50,32 @@ public class DataBase{
 
         System.out.println("Выберите отдел: ");
         showIdOtdel();
-        int x= scan.nextInt();
+        int x = scan.nextInt();
 
-        String ot = ( (Otdel) otdelList.get(x) ).getName();
+        String ot = ((Otdel) otdelList.get(x)).getName();
 
-        int ko= ((Otdel) otdelList.get(x)).getKolvo()+1;
-        ((Otdel)otdelList.get(x)).setKolvo(ko);
+        int ko = ((Otdel) otdelList.get(x)).getKolvo() + 1;
+        ((Otdel) otdelList.get(x)).setKolvoBol(ko);
 
         System.out.println("Выберите врача: ");
-        for (int i=0;i<vrachList.size();i++){
-            if (((Vrach) vrachList.get(i)).getOt()==ot ){
-                System.out.println(i+ ((Vrach) vrachList.get(i)).getName());
+        String vrach;
+        if(vrachList.size()!=0) {
+            for (int i = 0; i < vrachList.size(); i++) {
+                if (((Vrach) vrachList.get(i)).getOt() == ((Otdel) otdelList.get(x)).getName()) {
+                    System.out.println(i + " " + ((Vrach) vrachList.get(i)).getName());
+
+                }
             }
+            int d = scan.nextInt();
+            vrach = ((Vrach) vrachList.get(d)).getName();
         }
-        int g=scan.nextInt();
-        String vrach= ((Vrach) vrachList.get(g)).getName();
+        else{
+                System.out.println("Нет врачей в данном отделении!!!");
+                vrach=null;
+            }
 
         System.out.println("Введите год рождения больного: ");
-        int n =scan.nextInt();
+        int n = scan.nextInt();
         int date = data.getYear() - n;
 
         System.out.println("Введите пол больного: ");
@@ -76,12 +84,12 @@ public class DataBase{
         System.out.println("Введите ИНН больного: ");
         int inn = scan.nextInt();
 
-        Bolnoi h = new Bolnoi(ot, pol, name, date, inn,vrach);
+        Bolnoi h = new Bolnoi(ot, pol, name, date, inn, vrach);
         System.out.println(h);
         return h;
     }
 
-    void deleteBolnoi(){
+    void deleteBolnoi() {
         System.out.println();
         System.out.println("Введите номер больного: ");
         int n = scan.nextInt();
@@ -102,7 +110,7 @@ public class DataBase{
             case 0:
                 System.out.println("Введите какого больного хотите полностью изменить: ");
                 int c = scan.nextInt();
-                bolnoiList.set( c, newBolnoi());
+                bolnoiList.set(c, newBolnoi());
                 break;
             case 1:
                 System.out.println("Введите новый пол: ");
@@ -117,7 +125,7 @@ public class DataBase{
             case 3:
                 System.out.println("Введите новую дату рождения: ");
                 int d = scan.nextInt();
-                d=data.getYear() - d;
+                d = data.getYear() - d;
                 ((Bolnoi) bolnoiList.get(numberBol)).setDate(d);
                 break;
             case 4:
@@ -130,30 +138,30 @@ public class DataBase{
                 showIdOtdel();
                 int id = 0;
                 int newOt = scan.nextInt();
-                changeKolvo(numberBol,newOt);
-                String nOt= ((Otdel)otdelList.get(newOt)).getName();
-                ((Bolnoi)bolnoiList.get(numberBol)).setOt( nOt );
+                changeKolvoBol(numberBol, newOt);
+                String nOt = ((Otdel) otdelList.get(newOt)).getName();
+                ((Bolnoi) bolnoiList.get(numberBol)).setOt(nOt);
 
             case 6:
                 System.out.println("Выберети нововго врача: ");
                 showIdVrach();
-                int v=scan.nextInt();
-                int idv=0;
-                int idOt=0;
-                for (int i=0;i<vrachList.size();i++){
-                    if (((Bolnoi)bolnoiList.get(numberBol)).getVrach()==((Vrach)vrachList.get(i)).getName()){
-                         idv = i;
+                int v = scan.nextInt();
+                int idv = 0;
+                int idOt = 0;
+                for (int i = 0; i < vrachList.size(); i++) {
+                    if (((Bolnoi) bolnoiList.get(numberBol)).getVrach() == ((Vrach) vrachList.get(i)).getName()) {
+                        idv = i;
                     }
                 }
-                for (int i=0;i<otdelList.size();i++){
-                    if (((Vrach)vrachList.get(idv)).getOt()==((Otdel)otdelList.get(i)).getName()){
+                for (int i = 0; i < otdelList.size(); i++) {
+                    if (((Vrach) vrachList.get(idv)).getOt() == ((Otdel) otdelList.get(i)).getName()) {
                         idOt = i;
                     }
                 }
 
-                changeKolvo(numberBol,idOt);
-                String nm = ((Vrach)vrachList.get(v)).getName();
-                ((Bolnoi)bolnoiList.get(numberBol)).setVrach( nm );
+                changeKolvoBol(numberBol, idOt);
+                String nm = ((Vrach) vrachList.get(v)).getName();
+                ((Bolnoi) bolnoiList.get(numberBol)).setVrach(nm);
 
                 break;
             default:
@@ -163,66 +171,69 @@ public class DataBase{
     }
 
 
-    void changeKolvo(int numberBol, int newOt){
-        int id=0;
-        if (((Bolnoi) bolnoiList.get(numberBol)).getOt()!=((Otdel)otdelList.get(newOt)).getName()){
-            for (int i=0;i<otdelList.size();i++){
-                if (((Bolnoi) bolnoiList.get(numberBol)).getOt() == ((Otdel) otdelList.get(i)).getName() ){
-                    id=i;
+    void changeKolvoBol(int numberBol, int newOt) {
+        int id = 0;
+        if (((Bolnoi) bolnoiList.get(numberBol)).getOt() != ((Otdel) otdelList.get(newOt)).getName()) {
+            for (int i = 0; i < otdelList.size(); i++) {
+                if (((Bolnoi) bolnoiList.get(numberBol)).getOt() == ((Otdel) otdelList.get(i)).getName()) {
+                    id = i;
                 }
             }
-            int u =((Otdel)otdelList.get(id)).getKolvo()-1;
-            ((Otdel)otdelList.get(id)).setKolvo( u );
-            int r = ((Otdel)otdelList.get(newOt)).getKolvo()+1;
-            ((Otdel)otdelList.get(newOt)).setKolvo( r );
+            int u = ((Otdel) otdelList.get(id)).getKolvo() - 1;
+            ((Otdel) otdelList.get(id)).setKolvoBol(u);
+            int r = ((Otdel) otdelList.get(newOt)).getKolvo() + 1;
+            ((Otdel) otdelList.get(newOt)).setKolvoBol(r);
         }
     }
 
 
-
     //ОТДЕЛЫ
-    void addOtdel(Otdel Otdel){
+    void addOtdel(Otdel Otdel) {
         otdelList.add(Otdel);
     }
 
-    void showOtdel(){
-        for ( int i=0; i< otdelList.size(); i++){
+    void showOtdel() {
+
+        for (int i = 0; i < otdelList.size(); i++) {
             Otdel number = otdelList.get(i);
             System.out.println(number);
         }
 
     }
-    void showIdOtdel(){
-        for ( int i=0; i< otdelList.size(); i++){
+
+    void showIdOtdel() {
+        for (int i = 0; i < otdelList.size(); i++) {
             Otdel number = otdelList.get(i);
-            System.out.println(i+" " + number);
+            System.out.println(i + " " + number);
         }
     }
 
-    Otdel newOtdel(){
-        String vrach = null;
+    Otdel newOtdel() {
+        int vrach = 0;
         int kolvo = 0;
-        System.out.println("Введите название нового отдела: " );
+        System.out.println("Введите название нового отдела: ");
         String name = scan.next();
-        Otdel h = new Otdel(name,vrach,kolvo);
-        System.out.println(h);
-        return h;
-    }
-    Otdel newOtdelVrach(String vrach,String name){
-        int kolvo = 0;
-        Otdel h = new Otdel(name,vrach,kolvo);
+        Otdel h = new Otdel(name, vrach, kolvo);
         System.out.println(h);
         return h;
     }
 
-    void deleteOtdel(){
+    Otdel newOtdelVrach(String name) {
+        int kolvo = 0;
+        int vrach = 1;
+        Otdel h = new Otdel(name, vrach, kolvo);
+        System.out.println(h);
+        return h;
+    }
+
+    void deleteOtdel() {
         System.out.println();
         System.out.println("Введите номер отделения: ");
         int n = scan.nextInt();
         otdelList.remove(n);
     }
 
-    void changeOtdel(){
+    void changeOtdel() {
         System.out.println();
         System.out.println("Введите номер отделения, которое хотите изменить: ");
         int n = scan.nextInt();
@@ -234,7 +245,7 @@ public class DataBase{
             case 0:
                 System.out.println("Введите какой отдел хотите полностью изменить: ");
                 int c = scan.nextInt();
-                otdelList.set( c, newOtdel());
+                otdelList.set(c, newOtdel());
                 break;
             case 1:
                 System.out.println("Введите новое название: ");
@@ -244,7 +255,7 @@ public class DataBase{
             case 2:
                 System.out.println("Введите новое количество больных: ");
                 int k = scan.nextInt();
-                ((Otdel) otdelList.get(n)).setKolvo(k);
+                ((Otdel) otdelList.get(n)).setKolvoBol(k);
                 break;
             default:
                 break;
@@ -252,24 +263,25 @@ public class DataBase{
     }
 
     //ВРАЧИ
-    void addVrach(Vrach Vrach){
+    void addVrach(Vrach Vrach) {
         vrachList.add(Vrach);
     }
 
-    void showIdVrach(){
-        for (int i=0; i< vrachList.size(); i++){
+    void showIdVrach() {
+        for (int i = 0; i < vrachList.size(); i++) {
             Person number = vrachList.get(i);
-            System.out.println(i+" " + number);
+            System.out.println(i + " " + number);
         }
     }
-    void showVrach(){
-        for (int i=0; i< vrachList.size(); i++){
+
+    void showVrach() {
+        for (int i = 0; i < vrachList.size(); i++) {
             Person number = vrachList.get(i);
             System.out.println(number);
         }
     }
 
-    Vrach newVrach(){
+    Vrach newVrach() {
         LocalDate data = LocalDate.now();
 
         System.out.println("Введите имя врача: ");
@@ -278,23 +290,24 @@ public class DataBase{
         System.out.println("Введите зарплату данного врача: ");
         int zp = scan.nextInt();
         System.out.println("Выберите 1. Создать новый отдел 2. Выбрать отдел");
-        int x= scan.nextInt();
+        int x = scan.nextInt();
         String ot = null;
-        if (x==1){
+        if (x == 1) {
             System.out.println("Введите название отдела: ");
             ot = scan.next();
-            addOtdel(newOtdelVrach(name,ot));
+            addOtdel(newOtdelVrach(ot));
         }
-        if (x==2){
+        if (x == 2) {
             System.out.println("Выберите отдел: ");
             showIdOtdel();
             int a = scan.nextInt();
-            ot= ((Otdel) otdelList.get(a)).getName();
+            int q = ((Otdel) otdelList.get(a)).getKolvoVrach();
+            ((Otdel) otdelList.get(a)).setKolvoVrach(q + 1);
         }
 
 
         System.out.println("Введите год рождения врача: ");
-        int n =scan.nextInt();
+        int n = scan.nextInt();
         int date = data.getYear() - n;
 
         System.out.println("Введите пол врача: ");
@@ -303,12 +316,12 @@ public class DataBase{
         System.out.println("Введите ИНН врача: ");
         int inn = scan.nextInt();
 
-        Vrach h = new Vrach(ot,zp, pol, name, date, inn);
+        Vrach h = new Vrach(ot, zp, pol, name, date, inn);
         System.out.println(h);
         return h;
     }
 
-    void deleteVrach(){
+    void deleteVrach() {
         System.out.println();
         System.out.println("Введите номер врача: ");
         int n = scan.nextInt();
@@ -328,7 +341,7 @@ public class DataBase{
             case 0:
                 System.out.println("Введите какого врача хотите полностью изменить: ");
                 int c = scan.nextInt();
-                vrachList.set( c, newVrach());
+                vrachList.set(c, newVrach());
                 break;
             case 1:
                 System.out.println("Введите новый пол: ");
@@ -343,7 +356,7 @@ public class DataBase{
             case 3:
                 System.out.println("Введите новую дату рождения: ");
                 int d = scan.nextInt();
-                d=data.getYear() - d;
+                d = data.getYear() - d;
                 ((Vrach) vrachList.get(n)).setDate(d);
                 break;
             case 4:
@@ -352,18 +365,50 @@ public class DataBase{
                 ((Vrach) vrachList.get(n)).setInn(d);
                 break;
             case 5:
-                System.out.println("Введите новый отдел: ");
-                String f = scan.next();
-                ((Vrach) vrachList.get(n)).setOt(f);
+                System.out.println("1. Создать новый отдел 2. Перевести в другой отдел");
+                int r = scan.nextInt();
+                if (r == 1) {
+                    addOtdel(newOtdel());
+                }
+                if (r == 2) {
+                    System.out.println("Выберите отдел");
+                    showIdOtdel();
+                    int z = scan.nextInt();
+                    changeKolvoVrach(n, z);
+
+                    String l = ((Otdel)otdelList.get(z)).getName();
+                    ((Vrach)vrachList.get(n)).setOt( l );
+                }
+
                 break;
             case 6:
                 System.out.println("Введите новую зарплату: ");
-                int m =scan.nextInt();
+                int m = scan.nextInt();
                 ((Vrach) vrachList.get(n)).setZp(m);
             default:
                 break;
         }
     }
+
+    void changeKolvoVrach(int vrach, int newOt) {
+        int starId=0;
+        for (int i=0;i<otdelList.size();i++){
+            if ( ((Vrach) vrachList.get(vrach)).getOt() == ((Otdel) otdelList.get(i)).getName() ) {
+                starId=i;
+            }
+        }
+
+        if (((Vrach) vrachList.get(vrach)).getOt() != ((Otdel) otdelList.get(newOt)).getName() ) {
+
+            int a = ((Otdel)otdelList.get(starId)).getKolvoVrach();
+            ((Otdel)otdelList.get(starId)).setKolvoVrach(a-1);
+
+            int g= ((Otdel)otdelList.get(newOt)).getKolvoVrach();
+            ((Otdel)otdelList.get(newOt)).setKolvoVrach(g+1);
+        }
+
+    }
+
 
 
 
@@ -430,7 +475,7 @@ public class DataBase{
             ResultSet resultSetOt =statement.executeQuery(queryOt);
             while (resultSetOt.next()){
                 String name = resultSetOt.getString("name");
-                String vrach= resultSetOt.getString("vrach");;
+                int vrach= resultSetOt.getInt("kol-vo vrach");;
                 int kolvo= resultSetOt.getInt("kol-vo bolnix");;
 
                 Otdel ooo = new Otdel( name, vrach,  kolvo);
@@ -481,7 +526,7 @@ public class DataBase{
 
                 preStatOt.setInt(1,i+1);
                 preStatOt.setString(2,( (Otdel) otdelList.get(i) ).getName() );
-                preStatOt.setString(3,( (Otdel) otdelList.get(i) ).getVrach());
+                preStatOt.setInt(3,( (Otdel) otdelList.get(i) ).getKolvoVrach());
                 preStatOt.setInt(4,( (Otdel) otdelList.get(i) ).getKolvo());
 
                 preStatOt.execute();

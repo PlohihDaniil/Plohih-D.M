@@ -43,8 +43,9 @@ public class Bolnoi extends Person {
 
     @Override
     public String toString() {
-        return getName()+" "+getPol()+" "+getDate()+" "+getInn();
+        return getName()+" "+getPol()+" "+getDate()+" "+getInn()+" "+ getOt()+" "+ getVrach();
     }
+
 
 }
 

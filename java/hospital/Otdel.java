@@ -2,20 +2,20 @@ package test;
 
 public class Otdel {
     private String name;
-    private int kolvo;
-    private String vrach;
+    private int kolvoBol;
+    private int KolvoVrach;
 
-    Otdel(String name,String vrach, int kolvo) {
+    Otdel(String name,int KolvoVrach, int kolvoBol) {
         this.name = name;
-        this.vrach = vrach;
-        this.kolvo = kolvo;
+        this.KolvoVrach = KolvoVrach;
+        this.kolvoBol = kolvoBol;
     }
 
-    public String getVrach() {
-        return vrach;
+    public int getKolvoVrach() {
+        return KolvoVrach;
     }
-    public void setVrach(String vrach) {
-        this.vrach = vrach;
+    public void setKolvoVrach(int vrach) {
+        this.KolvoVrach = vrach;
     }
 
     public String getName() {
@@ -26,15 +26,15 @@ public class Otdel {
     }
 
     public int getKolvo() {
-        return kolvo;
+        return kolvoBol;
     }
-    public void setKolvo(int kolvo) {
-        this.kolvo = kolvo;
+    public void setKolvoBol(int kolvoBol) {
+        this.kolvoBol = kolvoBol;
     }
 
 
     public String toString() {
-        return name + " " + kolvo;
+        return name + "\t\t\t" + KolvoVrach + "\t\t\t\t\t" + kolvoBol;
     }
 
 }
