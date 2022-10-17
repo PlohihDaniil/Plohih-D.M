@@ -17,6 +17,7 @@ public class DBWorker {
             connection =DriverManager.getConnection(HOST,USER,PASS);
             if (!connection.isClosed()){
                 System.out.println("Присоеденение к БД успешно!");
+                System.out.println("Не сохранять");
             }
         } catch (Exception e) {
             e.printStackTrace();

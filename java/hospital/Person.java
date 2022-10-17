@@ -3,20 +3,20 @@ package test;
 public class Person {
 
     private String pol;
-    private String name;
+    private String surname;
     private int date;
     private int inn;
 
-    Person(String pol, String name, int date, int inn) {
+    Person(String pol, String surname, int date, int inn) {
 
         this.pol = pol;
-        this.name = name;
+        this.surname = surname;
         this.date = date;
         this.inn = inn;
     }
 
-    public void setName(String newName) {
-        this.name = newName;
+    public void setSurname(String newName) {
+        this.surname = newName;
     }
 
     public void setPol(String pol) {
@@ -31,8 +31,8 @@ public class Person {
         this.inn = inn;
     }
 
-    public String getName() {
-        return name;
+    public String getSurname() {
+        return surname;
     }
 
     public String getPol() {

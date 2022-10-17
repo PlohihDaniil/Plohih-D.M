@@ -1,8 +1,13 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Bolnoi extends Person {
     private String ot;
     private String vrach;
+
+    //private List<Kabinet> kab=new ArrayList<>();
 
     Bolnoi(String ot, String pol, String name, int date, int inn,String vrach) {
         super(pol, name, date, inn);
@@ -33,8 +38,8 @@ public class Bolnoi extends Person {
         super.setInn(inn);
     }
     @Override
-    public void setName(String newName) {
-        super.setName(newName);
+    public void setSurname(String newName) {
+        super.setSurname(newName);
     }
     @Override
     public void setPol(String pol) {
@@ -43,7 +48,7 @@ public class Bolnoi extends Person {
 
     @Override
     public String toString() {
-        return getName()+" "+getPol()+" "+getDate()+" "+getInn()+" "+ getOt()+" "+ getVrach();
+        return getSurname()+" "+getPol()+" "+getDate()+" "+getInn()+" "+ getOt()+" "+ getVrach();
     }
 
 
