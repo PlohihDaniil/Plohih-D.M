@@ -6,63 +6,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Kabinet {
+    private Long id;
     private String name;
-    private int number;
-    private final List<Integer> ob=new ArrayList<>();
+    private Long id_otdel;
+    private String otdel;
+    private List<Integer> ob;
 
-    Kabinet(String name,int number){
+    public Kabinet(Long id, String name, Long id_otdel, String otdel){
+        this.id=id;
         this.name=name;
-        this.number=number;
-        this.ob.addAll(new ArrayList<>());
+        this.id_otdel=id_otdel;
+        this.ob=new ArrayList<>();
+        this.otdel = otdel;
     }
-
-    public void setOb(int ob) {
-        this.ob.add(ob);
+    public void addOb(Integer o){
+        ob.add(o);
     }
 
     public List<Integer> getOb() {
-        for (int oborydovanie : ob) {
-            System.out.println(oborydovanie);
-        }
-        return null;
-    }
-    public List<Oborydovanie> getIdOb() {
-        for (int i =0;i<ob.size();i++){
-            System.out.println(i+" "+ob.get(i));
-        }
-        return null;
+        return ob;
     }
 
-    public void delete(int a){
-        for (int i=0;i<ob.size();i++) {
-            System.out.println(a);
-            if (a == ob.get(i)){
-                ob.remove(i);
-                System.out.println(i);
-            }
-        }
+    public Long getId() {
+        return id;
     }
 
-    public void reIdNumber(int a,int newNumber){
-        for (int i=0;i<ob.size();i++) {
-            if (a == ob.get(i)){
-               // ob.get(i).
-            }
-        }
+    public void setId_otdel(Long id_otdel) {
+        this.id_otdel = id_otdel;
     }
 
+    public Long getId_otdel() {
+        return id_otdel;
+    }
 
-    public String splitOb(){
-        String g=null;
-        for (int i=0;i< ob.size();i++){
-            if (g==null){
-                g=ob.get(i)+",";
-            }
-            else{
-                g+= ob.get(i)+",";
-            }
-        }
-        return g;
+    public void setOtdel(String otdel) {
+        this.otdel = otdel;
+    }
+
+    public String getOtdel() {
+        return otdel;
     }
 
     public void setName(String name) {
@@ -73,16 +55,8 @@ public class Kabinet {
         return name;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
     @Override
     public String toString() {
-        return name + " "+ number;
+        return id + " "+ name+" "+ otdel;
     }
 }

@@ -1,6 +1,7 @@
 package service;
 
 import domain.Bolnoi;
+import domain.Vrach;
 import repository.Repository;
 
 import java.sql.SQLException;
@@ -21,15 +22,40 @@ public class ServiceBolnoi implements Service<Bolnoi> {
     }
 
     @Override
-    public List<Bolnoi> getAll() {
+    public List<Bolnoi> getAll() throws SQLException {
         return repository.list();
     }
 
-    public void save(Bolnoi bolnoi){
+    public void save(Bolnoi bolnoi) throws SQLException {
         repository.save(bolnoi);
     }
-    public void update (Bolnoi bolnoi){
+    public void update (Bolnoi bolnoi) throws SQLException {
         repository.update(bolnoi);
+    }
+
+    @Override
+    public void delete(Bolnoi target) throws SQLException {
+        repository.delete(target);
+    }
+
+    @Override
+    public List<Bolnoi> getList(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<Bolnoi> listPoId(Long id) throws SQLException {
+        return repository.listPoId(id);
+    }
+
+    @Override
+    public List<Bolnoi> getListFree() throws SQLException {
+        return repository.getListFree();
+    }
+
+    @Override
+    public List<Bolnoi> getListPoId(Long id) {
+        return null;
     }
 
 }

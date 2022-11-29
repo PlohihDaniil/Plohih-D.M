@@ -3,19 +3,39 @@ package domain;
 public class MedPerson extends Person {
     private int zp;
     private String ot;
+    private Long idKab;
 
-    MedPerson(Long id,String ot, int zp,String pol, String name, int date, int inn) {
+    MedPerson(Long id, String ot, int zp, String pol, String name, int date, int inn, Long idKab) {
         super(id,pol, name, date, inn);
         this.zp=zp;
         this.ot=ot;
+        this.idKab= idKab;
+    }
+
+
+
+    public Long getIdKab() {
+        return idKab;
+    }
+
+    public void setIdKab(Long idKab) {
+        this.idKab = idKab;
     }
 
     public void setOt(String ot) {
         this.ot = ot;
     }
 
+    public String getOt() {
+        return ot;
+    }
+
     public void setZp(int zp) {
         this.zp = zp;
+    }
+
+    public int getZp() {
+        return zp;
     }
 
     @Override
@@ -36,10 +56,6 @@ public class MedPerson extends Person {
         super.setPol(pol);
     }
 
-    @Override
-    public String toString() {
-        return ot+" "+zp;
-    }
 
 
 
