@@ -18,4 +18,6 @@ public interface Service<T> {
     List<T> listPoId(Long id) throws SQLException;
     List<T> getListFree() throws SQLException;
     List<T> getListPoId(Long id) throws SQLException;
+
+   List<T> oneList(Long id) throws SQLException;
 }

@@ -58,4 +58,9 @@ public class ServiceBolnoi implements Service<Bolnoi> {
         return null;
     }
 
+    @Override
+    public List<Bolnoi> oneList(Long id) throws SQLException {
+        return null;
+    }
+
 }

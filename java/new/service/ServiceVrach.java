@@ -58,4 +58,9 @@ public class ServiceVrach implements Service<Vrach>{
     public List<Vrach> getListPoId(Long id) {
         return null;
     }
+
+    @Override
+    public List<Vrach> oneList(Long id) throws SQLException {
+        return null;
+    }
 }

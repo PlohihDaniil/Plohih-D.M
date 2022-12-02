@@ -58,4 +58,9 @@ public class ServiceOtdel implements Service<Otdel>{
     public List<Otdel> getListPoId(Long id) throws SQLException {
         return null;
     }
+
+    @Override
+    public List<Otdel> oneList(Long id) throws SQLException {
+        return null;
+    }
 }

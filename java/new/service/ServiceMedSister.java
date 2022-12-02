@@ -57,4 +57,9 @@ public class ServiceMedSister implements Service<MedSister>{
     public List<MedSister> getListPoId(Long id) {
         return null;
     }
+
+    @Override
+    public List<MedSister> oneList(Long id) throws SQLException {
+        return null;
+    }
 }

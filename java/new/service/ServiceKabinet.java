@@ -57,4 +57,9 @@ public class ServiceKabinet implements Service<Kabinet>{
     public List<Kabinet> getListPoId(Long id) {
         return null;
     }
+
+    @Override
+    public List<Kabinet> oneList(Long id) throws SQLException {
+        return null;
+    }
 }

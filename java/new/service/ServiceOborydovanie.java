@@ -49,6 +49,11 @@ public class ServiceOborydovanie implements Service<Oborydovanie>{
     }
 
     @Override
+    public List<Oborydovanie> oneList(Long id) throws SQLException {
+        return null;
+    }
+
+    @Override
     public List<Oborydovanie> getList(Long id) throws SQLException {
         return null;
     }
