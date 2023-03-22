@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Vector;
 
+
 public class Tokenizer {
+
     ArrayList<Token> rezult = new ArrayList<>();
     Vector<String> bufferInt = new Vector<>();
+    Vector<String> bufferOper = new Vector<>();
     public ArrayList<Token> tokenizer(String str){
         rezult.clear();
 
@@ -31,46 +34,68 @@ public class Tokenizer {
     }
 
     void detection(String[] x){
-        int a =0;
-        for (int i=0;i<x.length;i++) {
-            if( isOperator(x[0]) & a == 0 & isDigit(x[1])){
-                bufferInt.add(x[0]);
-                a=1;
-            }else{
-                a = 1;
-                if(Objects.equals(x[i], ".") | Objects.equals(x[i], ",")){
-                    if (Objects.equals(x[i], ",")){
-                        bufferInt.add(".");
+        try {
+            int a =0;
+            for (int i=0;i<x.length;i++) {
+                if( isOperator(x[0]) & a == 0 & isDigit(x[1])){ //проверка 1-ого числа на -
+                    bufferInt.add(x[0]);
+                    a=1;
+                }else{
+                    a = 1;
+                    if(Objects.equals(x[i], ".") | Objects.equals(x[i], ",")){ // проверка числа на дробность
+                        if (Objects.equals(x[i], ",")){ // проверка на , в дроби
+                            bufferInt.add(".");
+                        }else {
+                            bufferInt.add(x[i]);
+                        }
                     }else {
-                        bufferInt.add(x[i]);
-                    }
-                }else {
-                    if (isDigit(x[i]) ){
-                        bufferInt.add(x[i]);
-                    }else {
-                        if (isOperator(x[i])){
-                            if (isValid(x[i-1])){
-                                bufferInt.add(x[i]);
-                            }else {
-                                Buffer(bufferInt);
-                                rezult.add(  new Token("Оператор",x[i]));
-                            }
-                        }else{
-                            if (isValid(x[i])){
-                                Buffer(bufferInt);
-                                rezult.add(new Token("Скобка",x[i]));
+                        if (isDigit(x[i]) ){ // проверка символа на число
+                            bufferInt.add(x[i]);
+                            bufferOper(bufferOper);
+                        }else {
+                            if (isOperator(x[i])){// проверка символа на оперетор
+                                bufferOper.add(x[i]);
+                                if (x[i].equals("%")){
+                                    bufferInt.add(x[i]);
+                                    bufferInt(bufferInt);
+                                    bufferOper.clear();
+                                }else {
+                                    if (isValid(x[i-1]) && x[i].equals("-")){ // проверка числа на - после скобки
+                                        bufferInt.add(x[i]);
+                                        bufferOper.clear();
+                                    }else {
+                                        bufferInt(bufferInt);
+                                        bufferOper(bufferOper);
+                                    }
+                                }
+                            }else{
+                                if (isValid(x[i])){ // проверка символа на скобку
+                                    bufferInt(bufferInt);
+                                    rezult.add(new Token("Скобка",x[i]));
+                                }
                             }
                         }
                     }
                 }
             }
+            bufferInt(bufferInt);
+            bufferOper(bufferOper);
+        }catch (RuntimeException e){
+            System.out.println("Ошибка в расчетах проверьте пример!!!");
+
         }
-        Buffer(bufferInt);
+
     }
-    void Buffer(Vector buffer){
-        if(buffer != null ){
+    void bufferInt(Vector buffer){
+        if(!buffer.isEmpty() ){
             rezult.add(new Token("Число",String.join("", buffer)));
             bufferInt.clear();
+        }
+    }
+    void bufferOper(Vector buffer){
+        if (!buffer.isEmpty()) {
+            rezult.add(new Token("Оператор",String.join("", buffer)));
+            bufferOper.clear();
         }
     }
     //Проверка на число
@@ -84,7 +109,7 @@ public class Tokenizer {
     }
     //Проверка на оперватор
     boolean isOperator(String ch){
-        return ch.equals("+") | ch.equals("-") | ch.equals("*") | ch.equals("/");
+        return ch.equals("+") | ch.equals("-") | ch.equals("*") | ch.equals("/") | ch.equals("**") | ch.equals("%") | ch.equals("//");
     }
     //Проверка на скобки
     boolean isValid(String ch){

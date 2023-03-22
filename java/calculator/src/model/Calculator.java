@@ -3,12 +3,14 @@ package model;
 import conteiner.Token;
 
 import java.util.ArrayList;
+import java.util.Vector;
+
+import static java.lang.Math.*;
 
 public class Calculator {
 
-    private ArrayList<Token> tokens;
+    private final ArrayList<Token> tokens;
     private int pos;
-    static String expr;
 
     public Calculator(ArrayList<Token> tokens){
         this.tokens = tokens;
@@ -16,28 +18,36 @@ public class Calculator {
     }
 
     public double calculate(){
-
         double first = multiply();
 
-        while (pos < tokens.size()){
+        while (pos < tokens.size()) {
             String operator = tokens.get(pos).getValue();
-            if (!operator.equals("+") && !operator.equals("-")){
+            if (!operator.equals("+") && !operator.equals("-")) {
                 break;
-            }else{
+            } else {
                 pos++;
             }
 
-            double second = multiply();
-            if(operator.equals("+")){
-                first+=second;
-            }else {
-                first-=second;
+            double second;
+            if (check(tokens.get(pos).getValue())){
+                second = first *(splitPerc(tokens.get(pos).getValue()) / 100);
+                pos++;
             }
+            else {
+                second = multiply();
+            }
+
+            if (operator.equals("+")) {
+                first += second;
+            } else {
+                first -= second;
+            }
+
         }
         return first;
     }
     public double multiply(){
-        double first = factor();
+        double first = erect();
 
         while (pos < tokens.size()){
             String operator = tokens.get(pos).getValue();
@@ -47,7 +57,20 @@ public class Calculator {
                 pos++;
             }
 
-            double second = factor();
+            double second;
+
+            if (check(tokens.get(pos).getValue())){
+                if(operator.equals("*")){
+                    second = splitPerc(tokens.get(pos).getValue()) / 100;
+                    pos++;
+                }else{
+                    second = first / 100 * splitPerc(tokens.get(pos).getValue());
+                    pos++;
+                }
+            }else {
+                second = erect();
+            }
+
             if(operator.equals("*")){
                 first *= second;
             }else {
@@ -56,6 +79,36 @@ public class Calculator {
         }
         return first;
     }
+    public double erect(){
+
+        double first = factor();
+
+        while (pos < tokens.size()){
+            String operator = tokens.get(pos).getValue();
+            if (!operator.equals("**") && !operator.equals("//")){
+                break;
+            }else{
+                pos++;
+            }
+
+            double second = factor();
+            if(operator.equals("**")){
+
+                first = pow(first, second);
+
+            }else {
+                if (second == 2){
+                    first = sqrt(first);
+                }
+                if (second == 3){
+                    first = cbrt(first);
+                }
+            }
+        }
+
+        return first;
+    }
+
     public double factor(){
         String next = tokens.get(pos).getValue();
         double result;
@@ -84,5 +137,30 @@ public class Calculator {
         }
         pos++;
         return Double.parseDouble(next);
+    }
+    public boolean check(String x){
+
+        String[] d = x.split("");
+
+        for (String s : d) {
+            if (s.equals("%")) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public double splitPerc(String x){
+        Vector<String> s = new Vector<>();
+        String[] d = x.split("");
+
+        for (String value : d) {
+            if (!value.equals("%")) {
+                s.add(value);
+            }
+        }
+        return Double.parseDouble(String.join("",s));
+
     }
 }
